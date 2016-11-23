@@ -157,21 +157,18 @@ class Lab_Graph :
 		while len(SDJ) != 1 :
 			is_part[s] = True
 			if s + self._lengh < self.verticles:
-				if not SDJ.find(s) == SDJ.find(s+self._lengh): 
-					SDJ.union(s,s+self._lengh)
+				if SDJ.union(s,s+self._lengh):
 					self._briges[s][s+self._lengh] = True
 			if s - self._lengh >= self.verticles:
-				if not SDJ.find(s) == SDJ.find(s-self._lengh): 
-					SDJ.union(s,s-self._lengh)
+				if SDJ.union(s,s-self._lengh):
 					self._briges[s-self._lengh][s] = True
 			if s + 1 <= self.verticles and ( s%self._lengh != self._lengh-1 or s == 0 ):
-				if not SDJ.find(s) == SDJ.find(s+1): 
-					SDJ.union(s,s+1)
+				if SDJ.union(s,s+1):
 					self._briges[s][s+1] = True
 			if s - 1 >= 0 and ( s%self._lengh != 0 or s == 0 ):
-				if not SDJ.find(s) == SDJ.find(s-1): 
-					SDJ.union(s,s-1)
+				if SDJ.union(s,s-1):
 					self._briges[s-1][s] = True
+
 			while is_part[s] != False:
 				s = randint(0,self.verticles-1)
 
