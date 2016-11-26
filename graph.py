@@ -1,12 +1,19 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
 
 import sys
 from random import randint
-from pro_que import Pro_Que
 from sdj import Sdj
+from sdj import UnionFind
+
+from Queue import PriorityQueue
 
 class Lab_Graph :
-
+	"""Klasa zawierająca algorytmy generujące labirynt oraz sposób ich wyświetlania"""
+ 
 	def __init__(self,H=1,L=1):
+		"""Funkcja inicjująca macierz sąsiedztwa """
 		self._used,self._briges = [],[]		
 		self._hight = H
 		self._lengh = L
@@ -19,6 +26,7 @@ class Lab_Graph :
 		
 	
 	def __str__(self):
+		"""Funkcja wyświetlająca labirynt"""
 		leb = "$ "
 		
 		for i in range(self._lengh-1):
@@ -58,7 +66,7 @@ class Lab_Graph :
 		return leb
 
 	def AldousBroderGenerate(self):
-	
+		"""Funkcja generująca labirynt przy pomocy algorytmy Aldousa-Broder'a""" 
 		used = []
 	
 		for i in range(self.verticles):
@@ -102,45 +110,48 @@ class Lab_Graph :
 
 
 	def PrimGenerate(self):
+		"""Funkcja generująca labirynt przy pomocy algorytmu Prim'a"""
 		for i in range(self.verticles):
 			for j in range(self.verticles):
 				self._briges[i][j] = False	
-		Que = Pro_Que()
+		Que = PriorityQueue()
 		is_part  = []
 		is_ready = []
 		for i in range(self.verticles):
 			is_part.append(False)
 			is_ready.append(False)
 		s = randint(0,self.verticles-1)
-		k = (s,s)
+		k = (9223372036854775807,s,s)
 		is_part[s] = True
 		is_ready[s] = True
-		Que.insert(k,9223372036854775807);
-		while len(Que) != 0 :
-			if k[0] + self._lengh < self.verticles:
-				if not is_ready[k[0] + self._lengh]:
-					Que.insert( (k[0],k[0]+self._lengh), randint(0,9223372036854775806) )
-					is_ready[k[0]+self._lengh] = True
-			if k[0] - self._lengh >= 0:
-				if not is_ready[k[0] - self._lengh]:
-					Que.insert( (k[0],k[0]-self._lengh), randint(0,9223372036854775806) )
-					is_ready[k[0]-self._lengh] = True
-			if k[0] - 1 >= 0 and ( k[0] % self._lengh != 0 or k[0] == 0 ):
-				if not is_ready[k[0] - 1]:
-					Que.insert( (k[0],k[0]-1), randint(0,9223372036854775806) )
-					is_ready[k[0]-1] = True
-			if k[0] + 1 <= self.verticles and ( k[0] % self._lengh != self._lengh-1 or k[0] == 0 ):
-				if not is_ready[k[0] + 1]:
-					Que.insert( (k[0],k[0] + 1), randint(0,9223372036854775806) )
-					is_ready[k[0]+ 1] = True
-			k = Que.removeMin()
-			if not is_part[k[1]]:
-				self._briges[k[0]][k[1]] = True
-				self._briges[k[1]][k[0]] = True 
-				is_ready[k[1]] = True
-			k = (k[1],k[1])
+		Que.put(k);
+		while not Que.empty() :
+			if k[1] + self._lengh < self.verticles:
+				if not is_ready[k[1] + self._lengh]:
+					Que.put( (randint(0,9223372036854775806),k[1],k[1]+self._lengh) )
+					is_ready[k[1]+self._lengh] = True
+			if k[1] - self._lengh >= 0:
+				if not is_ready[k[1] - self._lengh]:
+					Que.put( (randint(0,9223372036854775806),k[1],k[1]-self._lengh) )
+					is_ready[k[1]-self._lengh] = True
+			if k[1] - 1 >= 0 and ( k[1] % self._lengh != 0 or k[1] == 0 ):
+				if not is_ready[k[1] - 1]:
+					Que.put( (randint(0,9223372036854775806),k[1],k[1]-1) )
+					is_ready[k[1]-1] = True
+			if k[1] + 1 <= self.verticles and ( k[1] % self._lengh != self._lengh-1 or k[1] == 0 ):
+				if not is_ready[k[1] + 1]:
+					Que.put( (randint(0,9223372036854775806),k[1],k[1] + 1))
+					is_ready[k[1]+ 1] = True
+			
+			k = Que.get()
+			if not is_part[k[2]]:
+				self._briges[k[1]][k[2]] = True
+				self._briges[k[2]][k[1]] = True 
+				is_ready[k[2]] = True
+			k = (0,k[2],k[2])
 
 	def KruskallGenerate(self):
+		"""Funkcja generująca labirynt przy pomocy algorytmu Kruskal'a"""
 
 		is_part  = []
 		for i in range(self.verticles):
@@ -148,10 +159,10 @@ class Lab_Graph :
 			for j in range(self.verticles):
 				self._briges[i][j] = False
 		
-		SDJ = Sdj()
+		SDJ = UnionFind()
 
 		for i in range(self.verticles):
-			SDJ.make_set(i)
+			SDJ.create(i)
 
 		s = randint(0,self.verticles-1)
 		while len(SDJ) != 1 :

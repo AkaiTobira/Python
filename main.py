@@ -1,5 +1,6 @@
 
 from graph import Lab_Graph
+from sdj import UnionFind
 import time
 
 Zero = Lab_Graph(60,39)
@@ -23,4 +24,4 @@ print Zero, A_stop - A_start
 
 print B,C,D
 
-# Statystyka Najwolniejszy : PRIM 1 , Kryskal 85%Prim , Aldos 15%PRIM
+# Statystyka Od Najwolniejszego : Aldous, Prim , Kruskal 
