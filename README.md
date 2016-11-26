@@ -12,7 +12,7 @@ Generator korzysta z algorytmów:
     Prima
 
 Update :
-    26/11/2016 /n /t/t/t
+    26/11/2016 
             - Zastąpiono własną implementacje Kolejki priorytetowej systemową
             - Zastąpione implementacje Zbiorów rozłącznych implementacją z Cormana
             - Dodano docstrings
