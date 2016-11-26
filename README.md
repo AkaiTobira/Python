@@ -10,3 +10,9 @@ Generator korzysta z algorytmów:
     Aldusa-Brodera
     Kruskalla
     Prima
+
+Update :
+    26/11/2016 /n /t/t/t
+            - Zastąpiono własną implementacje Kolejki priorytetowej systemową
+            - Zastąpione implementacje Zbiorów rozłącznych implementacją z Cormana
+            - Dodano docstrings
