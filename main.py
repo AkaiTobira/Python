@@ -3,7 +3,7 @@ from graph import Lab_Graph
 from sdj import UnionFind
 import time
 
-Zero = Lab_Graph(60,39)
+Zero = Lab_Graph(20,30)
 A_start = time.time()
 Zero.AldousBroderGenerate()
 A_stop = time.time()
@@ -25,3 +25,4 @@ print Zero, A_stop - A_start
 print B,C,D
 
 # Statystyka Od Najwolniejszego : Aldous, Prim , Kruskal 
+

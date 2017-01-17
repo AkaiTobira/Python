@@ -26,7 +26,89 @@ class Lab_Graph :
 		
 	
 	def __str__(self):
-		"""Funkcja wyświetlająca labirynt"""
+		"""Funkcja wyświetlająca labirynt w postaci prostokątów"""
+		string = "+  "
+		for i in range(self._lengh-1):
+			string += "+--"
+		string += "+\n";
+		numb = 0
+		for i in range(self._hight):
+			string += "|"
+			for j in range(self._lengh):
+				string += "  "
+				if not j == self._lengh-1:
+					if self._briges[numb][numb+1]:
+						string += " "
+						numb +=1
+					else :
+						string += "|"
+						numb += 1
+				else:
+					string += "|"
+			numb -= self._lengh-1
+			string += "\n"
+			for j in range(self._lengh):
+				if i != self._hight-1:
+					string += "+"
+					if self._briges[numb][numb+self._lengh]:
+						string += "  "
+						numb += 1
+					else:
+						string += "--"
+						numb += 1
+				else:
+					string += "+--"
+			string += "+\n"
+		string = string[0:len(string)-4]
+		string += "  +\n"
+		return string
+	
+	
+	def showHash(self):
+		"""Funkcja wyświetlająca labirynt przy pomocy #"""
+		leb = "# "
+		
+		for i in range(self._lengh-1):
+			leb += "##"
+		leb += "#\n"
+
+		numb = 0
+		for i in range(self._hight):
+			leb += "#"
+			for j in range(self._lengh):
+				leb += " "
+				if not j == self._lengh-1:
+					if self._briges[numb][numb+1] :
+						leb += " "
+						numb+=1
+					else :
+						leb += "#"
+						numb+=1
+				else :
+					leb += "#"
+			numb -= self._lengh-1
+			leb += "\n"
+			for j in range(self._lengh):
+				if i != self._hight-1 :
+					leb += "#"
+					if self._briges[numb][numb+self._lengh] :
+						leb += " "
+						numb+=1
+					else :
+						leb += "#"
+						numb+=1
+				else:
+					leb += "##"
+			leb += "#\n"
+		leb = leb[0:len(leb)-3]
+		leb += " #\n"
+			
+		return leb
+	  
+	  
+	
+	def showDollar(self):
+		"""Funkcja wyświetlająca labirynt przy pomocy $"""
 		leb = "$ "
 		
 		for i in range(self._lengh-1):
@@ -60,8 +142,9 @@ class Lab_Graph :
 						numb+=1
 				else:
 					leb += "$$"
-			leb = leb[0:len(leb)-1]
-			leb += " $\n"
+			leb += "$\n"
+		leb = leb[0:len(leb)-3]
+		leb += " $\n"
 			
 		return leb
 
